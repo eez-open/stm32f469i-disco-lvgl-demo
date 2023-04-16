@@ -48,6 +48,8 @@ void screen_driver_init(){
     BSP_LCD_Init() ;
   	BSP_LCD_LayerDefaultInit(0, (uint32_t)LVGL_BUFFER_ADDR_AT_SDRAM);
 
+	BSP_LCD_DisplayOn();
+
 	static lv_disp_draw_buf_t draw_buf;
 	lv_disp_draw_buf_init(&draw_buf, (void*)LVGL_BUFFER_ADDR_AT_SDRAM, (void*)LVGL_BUFFER_2_ADDR_AT_SDRAM, FRAMEBUFFER_SIZE);
 	lv_disp_drv_init(&lv_display_driver);
