@@ -1,0 +1,45 @@
+{
+    "configurations": [
+        {
+            "name": "STM32 F7",
+            "includePath": [
+                "${workspaceFolder}/Core/Inc",
+                "${workspaceFolder}/Drivers/CMSIS/Include",
+                "${workspaceFolder}/Drivers/CMSIS/Device/ST/STM32F7xx/Include",
+                "${workspaceFolder}/Drivers/STM32F7xx_HAL_Driver/Inc",
+                "${workspaceFolder}/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2",
+                "${workspaceFolder}/Middlewares/Third_Party/FreeRTOS/Source/include",
+                "${workspaceFolder}/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1",
+                "${workspaceFolder}/Middlewares",
+                "${workspaceFolder}/Middlewares/eez/libs/libscpi/inc",
+                "${workspaceFolder}/Middlewares/eez/libs/agg",
+                "${workspaceFolder}/Middlewares",
+                "${workspaceFolder}/Src/conf",
+                "${workspaceFolder}/Middlewares/eez/libs/libscpi/inc",
+                "${workspaceFolder}/../SDL2-2.0.14/include",
+                "${workspaceFolder}/../SDL2_image-2.0.4/include"
+            ],
+            "defines": [
+                "USE_HAL_DRIVER",
+                "STM32F769xx",
+                "DEBUG", 
+                "HAVE_STDBOOL",
+                "SCPI_USER_CONFIG=1",
+                "EEZ_PLATFORM_STM32",
+                "LZ4_FORCE_MEMORY_ACCESS=0"
+            ],
+            "compilerPath": "${env:ARMGCC_DIR}/arm-none-eabi-gcc.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-arm",
+            "compilerArgs": [
+                "-mcpu=cortex-m7",
+                "-mfpu=fpv5-d16",
+                "-mfloat-abi=hard",
+                "-mthumb"
+            ],
+            "configurationProvider": "ms-vscode.makefile-tools"
+        }        
+    ],
+    "version": 4
+}
