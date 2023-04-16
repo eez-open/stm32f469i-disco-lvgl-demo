@@ -8,8 +8,8 @@
 #include "main.h"
 #include "stm32469i_discovery_lcd.h"
 #include "stm32469i_discovery_ts.h"
-#include <lvgl.h>
-#include <touch_sensor_driver.h>
+#include <lvgl/lvgl.h>
+#include "touch_sensor_driver.h"
 #include <stdio.h>
 
 static void stm32_touchpad_read_cb(lv_indev_drv_t *indev_drv, lv_indev_data_t *indev_data);

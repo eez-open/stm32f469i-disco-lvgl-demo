@@ -37,6 +37,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "stm32469i_discovery_sdram.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -81,6 +82,8 @@ int main(void)
   SystemClock_Config();
   MX_GPIO_Init();
   MX_ADC1_Init();
+
+  BSP_SDRAM_Init();
 #else
   /* USER CODE END 1 */
 

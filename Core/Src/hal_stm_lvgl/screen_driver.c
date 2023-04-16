@@ -7,8 +7,8 @@
 
 #include "main.h"
 #include "stm32469i_discovery_lcd.h"
-#include <lvgl.h>
-#include <screen_driver.h>
+#include <lvgl/lvgl.h>
+#include "screen_driver.h"
 #include <stdio.h>
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -18,6 +18,9 @@
 #define FRAMEBUFFER_SIZE (uint32_t)LCD_SCREEN_HEIGHT*LCD_SCREEN_WIDTH
 #define DMA_XFERS_NEEDED FRAMEBUFFER_SIZE/2 // We need half as many transfers because the buffer is an array of
 											// 16 bits but the transfers are 32 bits.
+
+#define LVGL_BUFFER_ADDR_AT_SDRAM	(0xC0000000)
+#define LVGL_BUFFER_2_ADDR_AT_SDRAM (0xC00BB800)
 
 /*
  * Handles to peripherals
@@ -30,9 +33,6 @@ extern DMA2D_HandleTypeDef hdma2d;
  * Global variables
  */
 lv_disp_drv_t lv_display_driver;
-__attribute__ ( (section(".framebuffer"))) lv_color_t framebuffer_1[FRAMEBUFFER_SIZE];
-__attribute__ ( (section(".framebuffer"))) lv_color_t framebuffer_2[FRAMEBUFFER_SIZE];
-
 /*
  * Private functions prototypes
  */
@@ -46,10 +46,10 @@ void dma2d_copy_area(lv_area_t area, uint32_t src_buffer, uint32_t dst_buffer);
 void screen_driver_init(){
 
     BSP_LCD_Init() ;
-  	BSP_LCD_LayerDefaultInit(0, (uint32_t)framebuffer_1);
+  	BSP_LCD_LayerDefaultInit(0, (uint32_t)LVGL_BUFFER_ADDR_AT_SDRAM);
 
 	static lv_disp_draw_buf_t draw_buf;
-	lv_disp_draw_buf_init(&draw_buf, framebuffer_1, framebuffer_2, FRAMEBUFFER_SIZE);
+	lv_disp_draw_buf_init(&draw_buf, (void*)LVGL_BUFFER_ADDR_AT_SDRAM, (void*)LVGL_BUFFER_2_ADDR_AT_SDRAM, FRAMEBUFFER_SIZE);
 	lv_disp_drv_init(&lv_display_driver);
 	lv_display_driver.direct_mode = true;
 	lv_display_driver.hor_res = NT35510_480X800_HEIGHT;
@@ -77,10 +77,10 @@ void stm32_flush_cb(lv_disp_drv_t *disp_drv, const lv_area_t *area, lv_color_t *
 
 	// Determine source and destination of transfer
 	dma_xfer_src = (uint16_t *)color_p;
-	if(color_p == framebuffer_1){
-		dma_xfer_dst = (uint16_t *)framebuffer_2;
+	if(color_p == (void *)LVGL_BUFFER_ADDR_AT_SDRAM){
+		dma_xfer_dst = (uint16_t *)LVGL_BUFFER_2_ADDR_AT_SDRAM;
 	}else{
-		dma_xfer_dst = (uint16_t *)framebuffer_1;
+		dma_xfer_dst = (uint16_t *)LVGL_BUFFER_ADDR_AT_SDRAM;
 	}
 
 	for(size_t i = 0; i < disp->inv_p; i++){
