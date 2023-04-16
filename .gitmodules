@@ -1,0 +1,3 @@
+[submodule ".\\Middlewares\\eez-framework"]
+	path = .\\Middlewares\\eez-framework
+	url = https://github.com/eez-open/eez-framework
