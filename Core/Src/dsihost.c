@@ -109,7 +109,7 @@ void MX_DSIHOST_DSI_Init(void)
   }
   CmdCfg.VirtualChannelID = 0;
   CmdCfg.ColorCoding = DSI_RGB888;
-  CmdCfg.CommandSize = 200;
+  CmdCfg.CommandSize = 480;
   CmdCfg.TearingEffectSource = DSI_TE_EXTERNAL;
   CmdCfg.TearingEffectPolarity = DSI_TE_RISING_EDGE;
   CmdCfg.HSPolarity = DSI_HSYNC_ACTIVE_LOW;
@@ -156,7 +156,7 @@ void HAL_DSI_MspInit(DSI_HandleTypeDef* dsiHandle)
     HAL_GPIO_Init(DSI_TE_GPIO_Port, &GPIO_InitStruct);
 
     /* DSI interrupt Init */
-    HAL_NVIC_SetPriority(DSI_IRQn, 5, 0);
+    HAL_NVIC_SetPriority(DSI_IRQn, 0, 0);
     HAL_NVIC_EnableIRQ(DSI_IRQn);
   /* USER CODE BEGIN DSI_MspInit 1 */
 

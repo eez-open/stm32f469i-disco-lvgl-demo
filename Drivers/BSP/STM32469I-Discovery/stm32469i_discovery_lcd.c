@@ -363,7 +363,7 @@ uint8_t BSP_LCD_InitEx(LCD_OrientationTypeDef orientation)
   
 #if !defined(DATA_IN_ExtSDRAM)
   /* Initialize the SDRAM */
-  BSP_SDRAM_Init();
+  //BSP_SDRAM_Init();
 #endif /* DATA_IN_ExtSDRAM */
   
   /* Initialize the font */
