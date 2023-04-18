@@ -3,15 +3,13 @@
 
 #include <lvgl/lvgl.h>
 
-extern const lv_img_dsc_t img_background_1;
-extern const lv_img_dsc_t img_background_2;
-extern const lv_img_dsc_t img_background_3;
 extern const lv_img_dsc_t img_heating_button;
 extern const lv_img_dsc_t img_heating_button_hoover;
 extern const lv_img_dsc_t img_security_button;
 extern const lv_img_dsc_t img_security_button_hoover;
 extern const lv_img_dsc_t img_lighting_button;
 extern const lv_img_dsc_t img_lighting_button_hoover;
+extern const lv_img_dsc_t img_background_1;
 extern const lv_img_dsc_t img_face_0;
 extern const lv_img_dsc_t img_face_1;
 extern const lv_img_dsc_t img_face_2;
@@ -21,6 +19,7 @@ extern const lv_img_dsc_t img_save;
 extern const lv_img_dsc_t img_saved;
 extern const lv_img_dsc_t img_temperature_background;
 extern const lv_img_dsc_t img_power_background;
+extern const lv_img_dsc_t img_background_2;
 extern const lv_img_dsc_t img_watch;
 extern const lv_img_dsc_t img_slider_indicator;
 extern const lv_img_dsc_t img_slider_knob;
@@ -31,6 +30,7 @@ extern const lv_img_dsc_t img_checkmark;
 extern const lv_img_dsc_t img_big_checkmark;
 extern const lv_img_dsc_t img_switch_off;
 extern const lv_img_dsc_t img_switch_on;
+extern const lv_img_dsc_t img_background_3;
 extern const lv_img_dsc_t img_light_bulb;
 extern const lv_img_dsc_t img_slider_lighting;
 extern const lv_img_dsc_t img_arrow_next_hover;
