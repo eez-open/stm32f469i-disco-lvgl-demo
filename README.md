@@ -1,3 +1,5 @@
+![screenshot](screenshot.jpg)
+
 ### Ownership and License
 
 The contributors are listed in CONTRIB.TXT. This project uses the GPL v3 license, see LICENSE.TXT.
