@@ -1,15 +1,13 @@
 #include "images.h"
 
 const ext_img_desc_t images[34] = {
-    { "background_1", &img_background_1 },
-    { "background_2", &img_background_2 },
-    { "background_3", &img_background_3 },
     { "heating_button", &img_heating_button },
     { "heating_button_hoover", &img_heating_button_hoover },
     { "security_button", &img_security_button },
     { "security_button_hoover", &img_security_button_hoover },
     { "lighting_button", &img_lighting_button },
     { "lighting_button_hoover", &img_lighting_button_hoover },
+    { "background_1", &img_background_1 },
     { "face_0", &img_face_0 },
     { "face_1", &img_face_1 },
     { "face_2", &img_face_2 },
@@ -19,6 +17,7 @@ const ext_img_desc_t images[34] = {
     { "saved", &img_saved },
     { "temperature_background", &img_temperature_background },
     { "power_background", &img_power_background },
+    { "background_2", &img_background_2 },
     { "watch", &img_watch },
     { "slider_indicator", &img_slider_indicator },
     { "slider_knob", &img_slider_knob },
@@ -29,6 +28,7 @@ const ext_img_desc_t images[34] = {
     { "big_checkmark", &img_big_checkmark },
     { "switch_off", &img_switch_off },
     { "switch_on", &img_switch_on },
+    { "background_3", &img_background_3 },
     { "light_bulb", &img_light_bulb },
     { "slider_lighting", &img_slider_lighting },
     { "arrow_next_hover", &img_arrow_next_hover },
