@@ -43,6 +43,7 @@
 /* USER CODE BEGIN PV */
 extern LTDC_HandleTypeDef hltdc_eval;
 extern DMA2D_HandleTypeDef hdma2d_eval;
+extern DSI_HandleTypeDef hdsi_eval;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -269,11 +270,13 @@ void DMA2D_IRQHandler(void)
 void DSI_IRQHandler(void)
 {
   /* USER CODE BEGIN DSI_IRQn 0 */
-
+#if 1
+  HAL_DSI_IRQHandler(&hdsi_eval);
+#else
   /* USER CODE END DSI_IRQn 0 */
   HAL_DSI_IRQHandler(&hdsi);
   /* USER CODE BEGIN DSI_IRQn 1 */
-
+#endif
   /* USER CODE END DSI_IRQn 1 */
 }
 

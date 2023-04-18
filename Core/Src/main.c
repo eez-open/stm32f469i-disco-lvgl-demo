@@ -37,10 +37,12 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "stm32469i_discovery_sdram.h"
+#include "stm32469i_discovery_qspi.h"
 #include "lvgl/lvgl.h"
 #include "hal_stm_lvgl/screen_driver.h"
 #include "hal_stm_lvgl/touch_sensor_driver.h"
 #include "../../eez-project/src/ui/ui.h"
+#include "../../eez-project/src/ui/images.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -81,9 +83,11 @@ int main(void)
   /* USER CODE BEGIN 1 */
 #if 1
     HAL_Init();
+    
     SystemClock_Config();
-    MX_GPIO_Init();
-    MX_ADC1_Init();
+
+    BSP_QSPI_Init();
+    BSP_QSPI_MemoryMappedMode();
 
     BSP_SDRAM_Init();
 #else
@@ -116,7 +120,6 @@ int main(void)
   MX_I2C1_Init();
   MX_I2C2_Init();
   MX_LTDC_Init();
-  MX_QUADSPI_Init();
   MX_SAI1_Init();
   MX_SDIO_SD_Init();
   MX_TIM1_Init();
@@ -131,10 +134,14 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
   lv_init();
+
   screen_driver_init();
   touch_sensor_driver_init();
+
   ui_init();
+
   while (1)
   {
     /* USER CODE END WHILE */

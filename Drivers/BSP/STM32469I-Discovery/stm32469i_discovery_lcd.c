@@ -363,7 +363,7 @@ uint8_t BSP_LCD_InitEx(LCD_OrientationTypeDef orientation)
   
 #if !defined(DATA_IN_ExtSDRAM)
   /* Initialize the SDRAM */
-  //BSP_SDRAM_Init();
+  BSP_SDRAM_Init();
 #endif /* DATA_IN_ExtSDRAM */
   
   /* Initialize the font */
@@ -485,7 +485,7 @@ void BSP_LCD_LayerDefaultInit(uint16_t LayerIndex, uint32_t FB_Address)
   Layercfg.WindowX1 = BSP_LCD_GetXSize();
   Layercfg.WindowY0 = 0;
   Layercfg.WindowY1 = BSP_LCD_GetYSize(); 
-  Layercfg.PixelFormat = LTDC_PIXEL_FORMAT_RGB565;
+  Layercfg.PixelFormat = LTDC_PIXEL_FORMAT_ARGB8888;
   Layercfg.FBStartAdress = FB_Address;
   Layercfg.Alpha = 255;
   Layercfg.Alpha0 = 0;
@@ -1110,7 +1110,7 @@ void BSP_LCD_FillRect(uint16_t Xpos, uint16_t Ypos, uint16_t Width, uint16_t Hei
   BSP_LCD_SetTextColor(DrawProp[ActiveLayer].TextColor);
 
   /* Get the rectangle start address */
-  Xaddress = (hltdc_eval.LayerCfg[ActiveLayer].FBStartAdress) + 2*(BSP_LCD_GetXSize()*Ypos + Xpos);
+  Xaddress = (hltdc_eval.LayerCfg[ActiveLayer].FBStartAdress) + 4*(BSP_LCD_GetXSize()*Ypos + Xpos);
 
   /* Fill the rectangle */
   LL_FillBuffer(ActiveLayer, (uint32_t *)Xaddress, Width, Height, (BSP_LCD_GetXSize() - Width), DrawProp[ActiveLayer].TextColor);
@@ -1577,7 +1577,7 @@ static void LL_FillBuffer(uint32_t LayerIndex, void *pDst, uint32_t xSize, uint3
 {
   /* Register to memory mode with ARGB8888 as color Mode */
   hdma2d_eval.Init.Mode         = DMA2D_R2M;
-  hdma2d_eval.Init.ColorMode    = DMA2D_OUTPUT_RGB565;
+  hdma2d_eval.Init.ColorMode    = DMA2D_ARGB8888;
   hdma2d_eval.Init.OutputOffset = OffLine;
 
   hdma2d_eval.Instance = DMA2D;

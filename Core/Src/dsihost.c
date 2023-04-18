@@ -109,7 +109,7 @@ void MX_DSIHOST_DSI_Init(void)
   }
   CmdCfg.VirtualChannelID = 0;
   CmdCfg.ColorCoding = DSI_RGB888;
-  CmdCfg.CommandSize = 480;
+  CmdCfg.CommandSize = 200;
   CmdCfg.TearingEffectSource = DSI_TE_EXTERNAL;
   CmdCfg.TearingEffectPolarity = DSI_TE_RISING_EDGE;
   CmdCfg.HSPolarity = DSI_HSYNC_ACTIVE_LOW;

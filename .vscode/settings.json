@@ -24,6 +24,8 @@
         "xtree": "c",
         "xutility": "c",
         "screen_driver.h": "c",
-        "ui.h": "c"
-    }
+        "ui.h": "c",
+        "lvgl.h": "c"
+    },
+    "cortex-debug.variableUseNaturalFormat": true
 }
