@@ -1,4 +1,4 @@
-![screenshot](screenshot.jpg)
+![screenshot](screenshot.png)
 
 ### Ownership and License
 
