@@ -3,6 +3,10 @@
 
 #include <lvgl/lvgl.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern const lv_img_dsc_t img_heating_button;
 extern const lv_img_dsc_t img_heating_button_hoover;
 extern const lv_img_dsc_t img_security_button;
@@ -48,5 +52,9 @@ typedef struct _ext_img_desc_t {
 
 extern const ext_img_desc_t images[34];
 
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /*EEZ_LVGL_UI_IMAGES_H*/
