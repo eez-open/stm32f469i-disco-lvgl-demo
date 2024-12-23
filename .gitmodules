@@ -1,7 +1,3 @@
-[submodule ".\\Middlewares\\eez-framework"]
-	path = .\\Middlewares\\eez-framework
-	url = https://github.com/eez-open/eez-framework
-[submodule ".\\Middlewares\\lvgl"]
-	path = .\\Middlewares\\lvgl
+[submodule "Middlewares/lvgl"]
+	path = Middlewares/lvgl
 	url = https://github.com/lvgl/lvgl
-	branch = release/v8.3

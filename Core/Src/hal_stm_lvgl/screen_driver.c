@@ -49,6 +49,7 @@ void screen_driver_init() {
 
 	lv_disp_drv_init(&lv_display_driver);
 	lv_display_driver.direct_mode = true;
+	lv_display_driver.full_refresh = true;
 	lv_display_driver.hor_res = LCD_SCREEN_WIDTH;
 	lv_display_driver.ver_res = LCD_SCREEN_HEIGHT;
 	lv_display_driver.flush_cb = disp_flush;
