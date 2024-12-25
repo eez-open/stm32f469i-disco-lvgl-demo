@@ -22,6 +22,7 @@
 #include "stm32f4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <lvgl/lvgl.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -41,9 +42,9 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-extern LTDC_HandleTypeDef hltdc_eval;
-extern DMA2D_HandleTypeDef hdma2d_eval;
-extern DSI_HandleTypeDef hdsi_eval;
+extern LTDC_HandleTypeDef hltdc;
+extern DMA2D_HandleTypeDef hdma2d;
+extern DSI_HandleTypeDef hdsi;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -190,7 +191,6 @@ void PendSV_Handler(void)
 void SysTick_Handler(void)
 {
   /* USER CODE BEGIN SysTick_IRQn 0 */
-
   /* USER CODE END SysTick_IRQn 0 */
   /* USER CODE BEGIN SysTick_IRQn 1 */
 
@@ -238,13 +238,9 @@ void OTG_FS_IRQHandler(void)
 void LTDC_IRQHandler(void)
 {
   /* USER CODE BEGIN LTDC_IRQn 0 */
-#if 1
-  HAL_LTDC_IRQHandler(&hltdc_eval);
-#else
   /* USER CODE END LTDC_IRQn 0 */
   HAL_LTDC_IRQHandler(&hltdc);
   /* USER CODE BEGIN LTDC_IRQn 1 */
-#endif
   /* USER CODE END LTDC_IRQn 1 */
 }
 
@@ -254,13 +250,9 @@ void LTDC_IRQHandler(void)
 void DMA2D_IRQHandler(void)
 {
   /* USER CODE BEGIN DMA2D_IRQn 0 */
-#if 1
-  HAL_DMA2D_IRQHandler(&hdma2d_eval);
-#else
   /* USER CODE END DMA2D_IRQn 0 */
   HAL_DMA2D_IRQHandler(&hdma2d);
   /* USER CODE BEGIN DMA2D_IRQn 1 */
-#endif
   /* USER CODE END DMA2D_IRQn 1 */
 }
 
@@ -270,13 +262,9 @@ void DMA2D_IRQHandler(void)
 void DSI_IRQHandler(void)
 {
   /* USER CODE BEGIN DSI_IRQn 0 */
-#if 1
-  HAL_DSI_IRQHandler(&hdsi_eval);
-#else
   /* USER CODE END DSI_IRQn 0 */
   HAL_DSI_IRQHandler(&hdsi);
   /* USER CODE BEGIN DSI_IRQn 1 */
-#endif
   /* USER CODE END DSI_IRQn 1 */
 }
 

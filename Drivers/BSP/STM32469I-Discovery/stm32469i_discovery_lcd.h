@@ -356,7 +356,7 @@ void     BSP_LCD_DisplayOn(void);
   */
 
 /* @brief DMA2D handle variable */
-extern DMA2D_HandleTypeDef hdma2d_eval;
+extern DMA2D_HandleTypeDef hdma2d;
 
 /**
   * @}

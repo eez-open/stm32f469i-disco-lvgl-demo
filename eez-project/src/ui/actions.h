@@ -7,7 +7,6 @@
 extern "C" {
 #endif
 
-extern void action_load_image(lv_event_t * e);
 
 
 #ifdef __cplusplus

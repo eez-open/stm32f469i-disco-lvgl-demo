@@ -26,7 +26,10 @@
                 "HAVE_STDBOOL",
                 "SCPI_USER_CONFIG=1",
                 "EEZ_PLATFORM_STM32",
-                "LZ4_FORCE_MEMORY_ACCESS=0"
+                "LZ4_FORCE_MEMORY_ACCESS=0",
+                "LV_USE_ST_LTDC=1",
+                "LV_ST_LTDC_USE_DMA2D_FLUSH=0",
+                "LV_USE_DRAW_DMA2D=1"
             ],
             "compilerPath": "${env:ARMGCC_DIR}/arm-none-eabi-gcc.exe",
             "cStandard": "c11",

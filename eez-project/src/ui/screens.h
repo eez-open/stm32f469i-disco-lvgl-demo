@@ -8,7 +8,6 @@ extern "C" {
 #endif
 
 typedef struct _objects_t {
-    lv_obj_t *loading_screen;
     lv_obj_t *heating_screen;
     lv_obj_t *security_screen;
     lv_obj_t *lighting_screen;
@@ -63,33 +62,33 @@ typedef struct _objects_t {
     lv_obj_t *account_box_3__user1_name;
     lv_obj_t *account_box_3__user2_name;
     lv_obj_t *account_box_3__account_box_image;
-    lv_obj_t *obj0;
     lv_obj_t *security_button_1;
     lv_obj_t *lighting_button_1;
     lv_obj_t *temperature_arc;
     lv_obj_t *power_arc;
     lv_obj_t *save;
-    lv_obj_t *obj1;
+    lv_obj_t *obj0;
     lv_obj_t *heating_button_2;
     lv_obj_t *lighting_button_2;
+    lv_obj_t *obj1;
     lv_obj_t *obj2;
-    lv_obj_t *obj3;
     lv_obj_t *heating_button_3;
     lv_obj_t *security_button_3;
-    lv_obj_t *obj4;
+    lv_obj_t *obj3;
     lv_obj_t *save_1;
-    lv_obj_t *obj5;
+    lv_obj_t *obj4;
     lv_obj_t *background;
     lv_obj_t *heating_button_1;
     lv_obj_t *heating_temperature_panel;
-    lv_obj_t *obj6;
+    lv_obj_t *obj5;
     lv_obj_t *temperature_background;
-    lv_obj_t *watch;
+    lv_obj_t *obj6;
     lv_obj_t *obj7;
-    lv_obj_t *heating_power_panel;
+    lv_obj_t *watch;
     lv_obj_t *obj8;
-    lv_obj_t *power_background;
+    lv_obj_t *heating_power_panel;
     lv_obj_t *obj9;
+    lv_obj_t *power_background;
     lv_obj_t *obj10;
     lv_obj_t *obj11;
     lv_obj_t *obj12;
@@ -128,14 +127,10 @@ typedef struct _objects_t {
 extern objects_t objects;
 
 enum ScreensEnum {
-    SCREEN_ID_LOADING_SCREEN = 1,
-    SCREEN_ID_HEATING_SCREEN = 2,
-    SCREEN_ID_SECURITY_SCREEN = 3,
-    SCREEN_ID_LIGHTING_SCREEN = 4,
+    SCREEN_ID_HEATING_SCREEN = 1,
+    SCREEN_ID_SECURITY_SCREEN = 2,
+    SCREEN_ID_LIGHTING_SCREEN = 3,
 };
-
-void create_screen_loading_screen();
-void tick_screen_loading_screen();
 
 void create_screen_heating_screen();
 void tick_screen_heating_screen();

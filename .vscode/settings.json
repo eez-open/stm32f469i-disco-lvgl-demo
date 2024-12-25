@@ -25,7 +25,17 @@
         "xutility": "c",
         "screen_driver.h": "c",
         "ui.h": "c",
-        "lvgl.h": "c"
+        "lvgl.h": "c",
+        "lv_st_ltdc.h": "c",
+        "array": "c",
+        "deque": "c",
+        "forward_list": "c",
+        "list": "c",
+        "regex": "c",
+        "xhash": "c",
+        "xstring": "c",
+        "lv_display_private.h": "c",
+        "lv_conf_internal.h": "c"
     },
     "cortex-debug.variableUseNaturalFormat": true
 }

@@ -10,5 +10,4 @@
 
 void touch_sensor_driver_init();
 
-
 #endif /* HAL_STM_LVGL_TOUCH_SENSOR_DRIVER_H_ */
