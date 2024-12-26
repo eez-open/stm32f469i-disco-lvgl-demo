@@ -35,7 +35,8 @@
         "xhash": "c",
         "xstring": "c",
         "lv_display_private.h": "c",
-        "lv_conf_internal.h": "c"
+        "lv_conf_internal.h": "c",
+        "touch_sensor_driver.h": "c"
     },
     "cortex-debug.variableUseNaturalFormat": true
 }

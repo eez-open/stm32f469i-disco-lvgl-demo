@@ -127,7 +127,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="Src/hal_stm_lvgl/screen_driver.c|Src/my_system_stm32f4xx.c|Src/my_stm32f4xx_it.c|Src/my_stm32f4xx_hal_msp.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Core"/>
+						<entry excluding="Src/my_system_stm32f4xx.c|Src/my_stm32f4xx_it.c|Src/my_stm32f4xx_hal_msp.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Core"/>
 						<entry excluding="BSP/STM32469I-Discovery/stm32469i_discovery_sd.c|BSP/STM32469I-Discovery/stm32469i_discovery_audio.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="FATFS"/>
 						<entry excluding="lvgl/src/drivers/display/drm|lvgl/examples|lvgl/demos|lvgl/src/draw/sw/blend/arm2d|lvgl/src/draw/sw/blend/helium|lvgl/src/draw/sw/blend/neon|lvgl/tests|eez/libs/libscpi|eez/fs/simulator|eez/platform/simulator" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Middlewares"/>
