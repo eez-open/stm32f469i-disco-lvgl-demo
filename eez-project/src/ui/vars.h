@@ -15,14 +15,15 @@ extern "C" {
 // Flow global variables
 
 enum FlowGlobalVariables {
-    FLOW_GLOBAL_VARIABLE_USERS = 0,
-    FLOW_GLOBAL_VARIABLE_ZONES = 1,
-    FLOW_GLOBAL_VARIABLE_SELECTED_USER = 2,
-    FLOW_GLOBAL_VARIABLE_SELECTED_ZONE = 3
+    FLOW_GLOBAL_VARIABLE_SHOW_SPINNER = 0
 };
 
 // Native global variables
 
+extern int32_t get_var_diff();
+extern void set_var_diff(int32_t value);
+extern int32_t get_var_timestamp();
+extern void set_var_timestamp(int32_t value);
 
 
 #ifdef __cplusplus

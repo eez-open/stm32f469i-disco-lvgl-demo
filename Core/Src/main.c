@@ -36,6 +36,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <math.h>
+
 #include "stm32469i_discovery_sdram.h"
 #include "stm32469i_discovery_qspi.h"
 #include "stm32469i_discovery_lcd.h"
@@ -46,6 +48,7 @@
 #include <lvgl/src/drivers/display/st_ltdc/lv_st_ltdc.h>
 
 #include "../../eez-project/src/ui/ui.h"
+#include "../../eez-project/src/ui/screens.h"
 #include "../../eez-project/src/ui/images.h"
 /* USER CODE END Includes */
 
@@ -59,11 +62,33 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
+#define TFT_HOR_RES		800
+#define TFT_VER_RES		480
+#define BYTES_PER_PIXEL 4
+#define FRAMEBUF_SIZE	(TFT_HOR_RES * TFT_VER_RES * BYTES_PER_PIXEL)
+
+#define OSC_WIDTH	800
+#define OSC_HEIGHT	400
+#define DP_NUM		800
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+__attribute__((section(".sdram"), aligned(4)))  LV_DRAW_BUF_DEFINE_STATIC (canvas_buf, OSC_WIDTH, OSC_HEIGHT, LV_COLOR_FORMAT_XRGB8888);
+__attribute__((section(".sdram"), aligned(4)))  uint8_t fb2[FRAMEBUF_SIZE];
+__attribute__((section(".sdram"), aligned(4)))  uint8_t fb1[FRAMEBUF_SIZE];
+
+uint32_t old_y[DP_NUM] = { 0 };
+
+uint32_t old_y_fb1[DP_NUM] = { 0 };
+uint32_t old_y_fb2[DP_NUM] = { 0 };
+
+int32_t data_buf1[800] __attribute__((aligned(4))) = { 0 };
+
+int32_t data_buf2[800] __attribute__((aligned(4))) = { 0 };
+
+int32_t *buf_to_write;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -75,7 +100,71 @@ void PeriphCommonClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void MY_LCD_Init();
+int32_t diff;
+
+int32_t get_var_diff() {
+    return diff;
+}
+
+void set_var_diff(int32_t value) {
+    diff = value;
+}
+
+int32_t timestamp;
+
+int32_t get_var_timestamp() {
+    return timestamp;
+}
+
+void set_var_timestamp(int32_t value) {
+    timestamp = value;
+}
+
+uint32_t *buf;
+
+void update_chart(uint8_t *px_map) {
+    uint32_t T = HAL_GetTick() % 800;
+	static uint32_t last_t;
+    diff = T - last_t;
+    last_t = T;
+    timestamp = T;
+
+    uint32_t *fb = (uint32_t *)(px_map);
+	uint32_t *old_y_fb = (uint8_t *)fb == fb1 ? old_y_fb1 : old_y_fb2;
+
+    uint32_t black_32 = lv_color_to_u32(lv_color_make(0, 0, 0));
+    uint32_t yellow_32 = lv_color_to_u32(lv_color_make(255, 255, 0));
+
+	for (int x = 0; x < 800; x++) {
+	  int y = buf_to_write[x] / 4096.0 * OSC_HEIGHT;
+
+	  //buf[x + old_y[x] * OSC_WIDTH] = black_32;
+	  //buf[x + y * OSC_WIDTH] = yellow_32;
+	  //old_y[x] = y;
+
+	  fb[x + old_y_fb[x] * OSC_WIDTH] = black_32;
+	  fb[x + y * OSC_WIDTH] = yellow_32;
+
+	  old_y_fb[x] = y;
+	}
+
+    buf_to_write = buf_to_write == data_buf1 ? data_buf2: data_buf1;
+    for (int x = 0; x < 800; x++) {
+    	buf_to_write[x] = 2048.0f + 1800.0f * sinf(2 * (2.0f * 3.14159265f / 800.0f) * (x + T));
+    }
+}
+
+void disp_flash_start_cb(lv_event_t *e) {
+	static uint8_t *fb = fb1;
+
+	lv_display_t *disp = lv_event_get_target(e);
+	if (lv_display_flush_is_last(disp)) {
+		update_chart(fb);
+
+		fb = fb == fb1 ? fb2 : fb1;
+	}
+}
+
 /* USER CODE END 0 */
 
 /**
@@ -109,7 +198,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_CRC_Init();
-  MX_DMA2D_In__attrit();
+  MX_DMA2D_Init();
   MX_DSIHOST_DSI_Init();
   MX_FMC_Init();
   MX_I2C1_Init();
@@ -139,27 +228,30 @@ int main(void)
 
   BSP_SDRAM_Init();
 
-  BSP_LCD_Init() ;
-  BSP_LCD_LayerDefaultInit(0, (uint32_t)SDRAM_DEVICE_ADDR);
+  BSP_LCD_Init();
+  BSP_LCD_LayerDefaultInit(0, (uint32_t)fb1);
   BSP_LCD_Clear(LCD_COLOR_BLACK);
+
+  LV_DRAW_BUF_INIT_STATIC(canvas_buf);
 
   // LVGL init
   lv_init();
 
   // init display
   uint32_t ltdc_layer_index = 0; /* typically 0 or 1 */
-#if 0
+#if 1
   // note: direct mode with the LV_USE_DRAW_DMA2D enabled results in glitches on the screen
-  void *framebuffer1_address = (void *)SDRAM_DEVICE_ADDR;
-  void *framebuffer2_address = (void *)(SDRAM_DEVICE_ADDR + 3 * 1024 * 1024 / 2);
-  lv_st_ltdc_create_direct(framebuffer1_address, framebuffer2_address, ltdc_layer_index);
+  lv_display_t *disp = lv_st_ltdc_create_direct(fb1, fb2, ltdc_layer_index);
 #else
   // note: partial mode works fine with the LV_USE_DRAW_DMA2D enabled
-  #define BUF_SIZE 800*48*4
+  #define BUF_SIZE 800*40*4
   static uint8_t partial_buf1[BUF_SIZE];
-  //static uint8_t optional_partial_buf2[BUF_SIZE];
-  create_disp(partial_buf1, 0/*optional_partial_buf2*/, BUF_SIZE, ltdc_layer_index);
+  static uint8_t optional_partial_buf2[BUF_SIZE];
+  //create_disp(partial_buf1, 0/*optional_partial_buf2*/, BUF_SIZE, ltdc_layer_index);
+  lv_st_ltdc_create_partial(partial_buf1, optional_partial_buf2, BUF_SIZE, ltdc_layer_index);
 #endif
+
+  lv_display_add_event_cb(disp, disp_flash_start_cb, LV_EVENT_FLUSH_START, NULL);
 
   // init touch
   touch_sensor_driver_init();
@@ -168,17 +260,37 @@ int main(void)
   ui_init();
   ui_tick();
 
+  lv_canvas_set_draw_buf(objects.canvas, &canvas_buf);
+  lv_obj_set_style_bg_opa(objects.canvas, LV_OPA_TRANSP, 0);
+
+  // Fill the background once initially
+  lv_canvas_fill_bg(objects.canvas, lv_color_black(), LV_OPA_COVER);
+
+  // Get the image descriptor of the canvas
+  const lv_img_dsc_t *img_dsc = lv_canvas_get_image(objects.canvas);
+  // Get a pointer to the color buffer
+  buf = (uint32_t*) img_dsc->data; // For RGB565
+
+  buf_to_write = data_buf1;
+
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    lv_timer_handler();
+	uint32_t delay = lv_timer_handler();
 
-    // from the source code generated by the EEZ Studio
+	uint32_t t1 = HAL_GetTick();
     ui_tick();
+    uint32_t t2 = HAL_GetTick();
+    uint32_t diff = t2 - t1;
 
-    HAL_Delay(5);
+	if (delay != LV_NO_TIMER_READY) {
+		if (diff < delay) {
+			HAL_Delay(delay - diff);
+		}
+	} else
+		HAL_Delay(5);
   }
   /* USER CODE END 3 */
 }

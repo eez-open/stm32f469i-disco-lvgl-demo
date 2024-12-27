@@ -49,6 +49,8 @@ MEMORY
   RAM      (xrw)   : ORIGIN = 0x20000000,  LENGTH = 320K
   FLASH    (rx)    : ORIGIN = 0x08000000,  LENGTH = 2048K
   QSPI     (rx)    : ORIGIN = 0x90000000,  LENGTH = 16M
+  SDRAM    (xrw)   : ORIGIN = 0xC0000000,  LENGTH = 16M
+  
 }
 
 /* Sections */
@@ -209,4 +211,9 @@ SECTIONS
     *(.ExtFlashSection) 
     . = ALIGN(0x4);
   } >QSPI
+
+  .sdram : { 
+    *(.sdram) 
+    . = ALIGN(0x4);
+  } >SDRAM
 }
